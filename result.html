@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>Untitled Project (fork)</title><meta name="title" content="Untitled Project (fork)"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style id="__livecodes_styles__">* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.container {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+.quote-box {
+    min-height: 100px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+#quote-text {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #555;
+    line-height: 1.6;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}</style><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
+  "imports": {}
+}</script></head><body>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Consejos</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <main class="container">
+        <h1>Consejo del Día</h1>
+        
+        
+        <div id="quote-container" class="quote-box">
+            <!-- El texto inicial antes de llamar a la API -->
+            <p id="quote-text">Haz clic en el botón para recibir sabiduría gratuita.</p>
+        </div>
+        
+        <button id="fetch-btn">Obtener Consejo</button>
+    </main>
+    
+    <script src="app.js">
+        console.log("Hola, mundo!");
+    </script>
+
+<script type="module">// Actividad: Generador de Consejos con JavaScript
+
+// PASO 1: Seleccionar los elementos del DOM
+// Utiliza 'const' para declarar las variables, ya que estos elementos no cambiarán.
+// Pista: usa document.getElementById('id-del-elemento')
+
+// Seleccionamos el botón
+const boton = document.getElementById('fetch-btn');
+// Seleccionamos el párrafo donde aparecerá el consejo
+const textoConsejo = document.getElementById('quote-text');
+
+
+// PASO 2: Crear la función para consumir la API
+// Utilizaremos una Arrow Function y la sintaxis async/await
+// URL de la API: 'https://api.adviceslip.com/advice'
+
+const obtenerConsejo = async () => {
+    try {
+        // Deshabilitamos el botón mientras carga
+        boton.disabled = true;
+        // Mostramos un texto de carga
+        textoConsejo.textContent = 'Cargando consejo...';
+        // 2.1 Utiliza 'fetch' para llamar a la API
+        const respuesta = await fetch('https://api.adviceslip.com/advice');
+        // 2.2 Convertimos la respuesta a formato JSON
+        const data = await respuesta.json();
+        // 2.3 Extraemos el consejo
+        const consejo = data.slip.advice;
+        // 2.4 Mostramos el consejo en el HTML usando Template Literals
+        textoConsejo.textContent = `${consejo}`;
+    } catch (error) {
+        // Mostramos el error en la consola
+        console.error('Error al obtener el consejo:', error);
+        // Mostramos un mensaje al usuario
+        textoConsejo.textContent = 'No se pudo obtener el consejo. Inténtalo nuevamente.';
+    } finally {
+        // Volvemos a habilitar el botón
+        boton.disabled = false;
+    }
+};
+
+
+// Conectamos el botón con la función
+// Escuchamos el evento 'clic' en el botón
+
+boton.addEventListener('click', obtenerConsejo);</script></body></html>
